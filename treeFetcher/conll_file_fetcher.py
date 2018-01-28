@@ -3,6 +3,7 @@ import io
 
 yap = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/yap_run.sh'
 yap_nett = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/yap'
+dep_output = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
 
 
 def create_input_raw(utterance):
@@ -13,22 +14,46 @@ def create_input_raw(utterance):
         file.write("\n\n")
     return input_path
 
-def get_conll_x_file(utterance):
-    input_raw = create_input_raw(utterance)
-    lattices_conll = './parsing_handler/yapproj/src/yap/data/lattices.conll'
-    output_conll = './parsing_handler/yapproj/src/yap/data/output.conll'
-    dep_output = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
+
+def parse_sentence(utterance):
+    create_input_raw(utterance)
     parsing = subprocess.Popen(yap, shell=True)
     parsing.wait()
-    # create_lattices = subprocess.Popen([yap_nett, 'hebma', '-raw', input_raw, '-out', lattices_conll], shell=True)
-    # create_lattices.wait()
-    # build_output = subprocess.Popen([yap_nett, 'md', '-in', lattices_conll, '-om', output_conll], shell=True)
-    # build_output.wait()
-    # build_dep = subprocess.Popen([yap_nett, 'dep', '-inl', output_conll, '-oc', dep_output], shell=True)
-    # build_dep.wait()
-    content = open(dep_output, 'r').readlines()
-
-    return lattices_conll, output_conll, dep_output, content
+    return parsing
 
 
-# /home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/data
+def conll_to_list():
+    with open(dep_output, 'r') as parse:
+        lemmas = []
+        for line in parse.readlines()[0:-1]:
+            parts = [part for part in line.split("\t")]
+            lemmas.append(parts)
+    return lemmas
+
+def pos_tagger():
+    lemmas = conll_to_list()
+    for line in lemmas:
+        pos = ["%s\%s" % (line[1], line[3]) for line in lemmas]
+    return " ".join(pos)
+
+
+def show_dependencies():
+    lemmas = conll_to_list()
+    dependencies = []
+    for line in lemmas:
+        relation = line[7]
+        head_index = line[6]
+        head_lemma = "root"
+        for subline in lemmas:
+            if subline[0] == head_index:
+                head_lemma = subline[1]
+        self_lemma = line[1]
+        self_index = line[0]
+        dependency = "%s(%s-%s, %s-%s)" %(relation, self_lemma, self_index, head_lemma, head_index)
+        dependencies.append(dependency)
+    return "\n".join(dependencies)
+
+
+def statistics():
+    pass
+# I can't extract the time from shell. maybe Amit can help.

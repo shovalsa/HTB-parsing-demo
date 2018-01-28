@@ -48,13 +48,16 @@
     {% endfor %}
     <button class="btn" type="submit">Submit</button>
   </form>
-</div>
-<div style="direction:rtl">
-    {% for line in content %}
-        {{ line|linebreaks }}
-    {% endfor %}
-</div>
-
+<section class="results">
+    {% if query != "" %}
+        <h4>Your Query:</h4>
+        {{ query }}
+        <h4>Tagging:</h4>
+        {{ pos }}
+        <h4>Dependencies:</h4>
+        {{ relations|linebreaks }}
+{% endif %}
+</section>
 <section id="annotatorType">
   <div class="sentence"></div>
   <div class="tree"></div>
