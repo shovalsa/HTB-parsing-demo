@@ -23,5 +23,6 @@ from treeFetcher import views
 
 urlpatterns = [
     path('', views.submit_utterance, name="home"),
+    path('conll-reader', views.submit_conll, name="conll-reader"),
     path('admin/', admin.site.urls),
 ]

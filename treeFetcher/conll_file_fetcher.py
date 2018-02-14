@@ -21,24 +21,43 @@ def parse_sentence(utterance):
     parsing.wait()
     return parsing
 
+conll_placeholder = """1	אכן	אכן	ADV	ADV	_	4	advmod	_	SpaceAfter=No
+2	,	,	PUNCT	PUNCT	_	4	punct	_	_
+3	כך	כך	ADV	ADV	_	4	advmod	_	_
+4	עשתה	עשה	VERB	VERB	Gender=Fem|HebBinyan=PAAL|Number=Sing|Person=3|Tense=Past|Voice=Act	0	root	_	_
+5	חטיבת	חטיבה	NOUN	NOUN	Definite=Cons|Gender=Fem|Number=Sing	4	nsubj	_	_
+6	"	"	PUNCT	PUNCT	_	7	punct	_	SpaceAfter=No
+7	הראל	הראל	PROPN	PROPN	_	5	flat:name	_	SpaceAfter=No
+8	"	"	PUNCT	PUNCT	_	7	punct	_	SpaceAfter=No
+9	.	.	PUNCT	PUNCT	_	4	punct	_	_"""
 
-def conll_to_list():
-    with open(dep_output, 'r') as parse:
+def conll_to_list(utterance=None):
+    if utterance==None:
+        with open(dep_output, 'r') as parse:
+            lemmas = []
+            for line in parse.readlines()[0:-1]:
+                parts = [part for part in line.split("\t")]
+                lemmas.append(parts)
+    else:
         lemmas = []
-        for line in parse.readlines()[0:-1]:
+        print(utterance)
+        for line in utterance.split("\n"):
+            print("line: ", line)
             parts = [part for part in line.split("\t")]
             lemmas.append(parts)
+        print("lemmas", lemmas)
     return lemmas
 
-def pos_tagger():
-    lemmas = conll_to_list()
-    for line in lemmas:
-        pos = ["%s\%s" % (line[1], line[3]) for line in lemmas]
+def pos_tagger(utterance=None):
+    lemmas = conll_to_list(utterance)
+    pos = []
+    for lemma in lemmas:
+        pos.append("%s\%s" % (lemma[1], lemma[3]))
     return " ".join(pos)
 
 
-def show_dependencies():
-    lemmas = conll_to_list()
+def show_dependencies(utterance=None):
+    lemmas = conll_to_list(utterance)
     dependencies = []
     for line in lemmas:
         relation = line[7]
