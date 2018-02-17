@@ -12,7 +12,15 @@ main {
     height: auto;
 }
 
-
+.page-title{
+    border-bottom: 1px solid #ccc; /* This is the line replacing the hr*/
+    margin-bottom: 10px; /* This is the space below the line */
+    padding-top: 30px;
+    padding-bottom: 5px; /* This is the space between the heading text and the line */
+    border-color: black;
+    font-family: 'Special Elite', Lucida sans, cursive;
+	font-size: 32px;
+}
 
 /*-------------------------------*/
 /*             NavBar            */
@@ -25,4 +33,35 @@ main {
 
 .navbar-brand {
   padding: 3px;
+}
+
+.navbar-inverse {
+    background-color: #000;
+}
+
+
+/*-------------------------------*/
+/*           Annotations         */
+/*-------------------------------*/
+
+.card-header{
+    border-left: 6px solid black;
+    background-color: #ccc;
+    padding: 3px;
+}
+
+.collapsed, a:hover, a:active, a:visited{
+    color:black;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.collapse{
+    padding-top: 20px;
+    font-size: 16px;
+}
+
+.card-subtype {
+    margin-left: 40px;
 }

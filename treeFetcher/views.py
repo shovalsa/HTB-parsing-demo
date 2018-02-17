@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import UtteranceForm, ConllForm
 from .conll_file_fetcher import parse_sentence, pos_tagger, show_dependencies
+from .models import DepCategory
 import subprocess
 # Create your views here.
 import time
@@ -42,3 +43,7 @@ def submit_conll(request):
             pos = pos_tagger(query)
             relations = show_dependencies(query.rstrip("\n"))
     return render(request, "conll-reader.html", {'form': form, 'pos': pos, 'relations': relations, 'query': query})
+
+def relations(request):
+    relations = DepCategory.objects.all()
+    return render(request, "relations.html", {'relations': relations})

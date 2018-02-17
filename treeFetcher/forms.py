@@ -16,8 +16,8 @@ class UtteranceForm(forms.Form):
 
 
 conll_placeholder = """
-
-# text = אכן, כך עשתה חטיבת "הראל".
+for the sentence:
+ אכן, כך עשתה חטיבת "הראל".
 1	אכן	אכן	ADV	ADV	_	4	advmod	_	SpaceAfter=No
 2	,	,	PUNCT	PUNCT	_	4	punct	_	_
 3	כך	כך	ADV	ADV	_	4	advmod	_	_
