@@ -33,4 +33,20 @@ class ConllForm(forms.Form):
     utterance = forms.CharField(label='Utterance', widget=forms.Textarea(attrs={
         'placeholder': conll_placeholder,
         'rows': 10,
-        'cols': 120}))
+        'cols': 150}))
+
+
+class MyForm(forms.Form):
+  def as_contact(self):
+    return self._html_output(
+        normal_row='<p%(html_class_attr)s> %(label)s <br> %(field)s %(help_text)s </p>',
+        error_row='%s',
+        row_ender='</p>',
+        help_text_html=' <span class="helptext">%s</span>',
+        errors_on_separate_row=True)
+
+class ContactForm(MyForm):
+    contact_name = forms.CharField(required=True, label="Name")
+    contact_email = forms.EmailField(required=True, label="Email")
+    subject = forms.CharField(required=True, label='Subject')
+    message = forms.CharField(required=True, widget=forms.Textarea, label='Message')

@@ -26,4 +26,5 @@ urlpatterns = [
     path('conll-reader', views.submit_conll, name="conll-reader"),
     path('relations', views.relations, name="UD-relations"),
     path('admin/', admin.site.urls),
+    path('contact', views.contact, name="contact"),
 ]

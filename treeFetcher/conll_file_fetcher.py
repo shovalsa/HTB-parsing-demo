@@ -5,7 +5,16 @@ yap = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/yap_run.sh'
 yap_nett = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/yap'
 dep_output = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
 
+"""
+the input file should be
+שלום
+,
+היום
+יום
+יפה
+.
 
+"""
 def create_input_raw(utterance):
     seperated = utterance.split(" ")
     input_path = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/data/input.raw'
@@ -48,12 +57,21 @@ def conll_to_list(utterance=None):
         print("lemmas", lemmas)
     return lemmas
 
+
+def segment_query(utterance=None):
+    lemmas = conll_to_list(utterance)
+    pos = []
+    for lemma in lemmas:
+        pos.append(lemma[1])
+    return " ".join(pos)
+
 def pos_tagger(utterance=None):
     lemmas = conll_to_list(utterance)
     pos = []
     for lemma in lemmas:
-        pos.append("%s\%s" % (lemma[1], lemma[3]))
-    return " ".join(pos)
+        if lemma[3] != "PUNCT":
+            pos.append("%s\t|\t%s\t|\t%s" % (lemma[1], lemma[3], lemma[5].replace("|", "\t\t").replace("_", "\t")))
+    return "\n".join(pos)
 
 
 def show_dependencies(utterance=None):

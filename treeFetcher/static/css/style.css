@@ -39,10 +39,16 @@ main {
     background-color: #000;
 }
 
-
+.dropdown-menu {
+    filter: invert(100%);
+}
 /*-------------------------------*/
 /*           Annotations         */
 /*-------------------------------*/
+
+.card {
+    margin-top: 20px;
+}
 
 .card-header{
     border-left: 6px solid black;
@@ -50,7 +56,10 @@ main {
     padding: 3px;
 }
 
-.collapsed, a:hover, a:active, a:visited{
+.collapsed,
+.collapsed a:hover,
+.collapsed a:active,
+.collapsed a:visited{
     color:black;
     font-weight: bold;
     font-size: 18px;
@@ -60,6 +69,10 @@ main {
 .collapse{
     padding-top: 20px;
     font-size: 16px;
+}
+
+#collapse-pos, #collapse-segments {
+    direction: rtl;
 }
 
 .card-subtype {

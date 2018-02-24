@@ -12,19 +12,70 @@
     {% endfor %}
     <button class="btn" type="submit">Submit</button>
   </form>
-<section class="results">
-    {% if query != "" %}
-        <h4>Your Query:</h4>
-        {{ query }}
-        <h4>Tagging:</h4>
-        {{ pos }}
-        <h4>Dependencies:</h4>
-        {{ relations|linebreaks }}
-{% endif %}
-</section>
-<section id="annotatorType">
-  <div class="sentence"></div>
-  <div class="tree"></div>
-</section>
+<!--<section class="results">-->
+    <!--{% if query != "" %}-->
+        <!--<h4>Your Query:</h4>-->
+        <!--{{ query }}-->
+        <!--<h4>Tagging:</h4>-->
+        <!--{{ pos }}-->
+        <!--<h4>Dependencies:</h4>-->
+        <!--{{ relations|linebreaks }}-->
+<!--{% endif %}-->
+{% if query != "" %}
+    <div id="accordion-segments" role="tablist" aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="heading-segments">
+                <h5>
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-segments" aria-expanded="true"
+                   aria-controls="collapse-segments">
+                  <span class="collapsed">Segmented text</span>
+                </a>
+              </h5>
+            </div>
+
+            <div id="collapse-segments" class="collapse" role="tabpanel" aria-labelledby="heading-segments">
+              <div class="card-block">
+                {{segments}}
+              </div>
+            </div>
+          </div>
     </div>
+<div id="accordion-pos" role="tablist" aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="heading-pos">
+                <h5>
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-pos" aria-expanded="true"
+                   aria-controls="collapse-pos">
+                  <span class="collapsed">Part of Speech Tags</span>
+                </a>
+              </h5>
+            </div>
+
+            <div id="collapse-pos" class="collapse" role="tabpanel" aria-labelledby="heading-pos">
+              <div class="card-block">
+                {{pos|linebreaks}}
+              </div>
+            </div>
+          </div>
+    </div>
+
+<div id="accordion-dep" role="tablist" aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="heading-dep">
+                <h5>
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-dep" aria-expanded="true"
+                   aria-controls="collapse-dep">
+                  <span class="collapsed">Dependency Relations</span>
+                </a>
+              </h5>
+            </div>
+
+            <div id="collapse-dep" class="collapse" role="tabpanel" aria-labelledby="heading-dep">
+              <div class="card-block">
+                {{relations|linebreaks}}
+              </div>
+            </div>
+          </div>
+    </div>
+{% endif %}
 {% endblock %}
