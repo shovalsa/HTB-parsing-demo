@@ -3,30 +3,22 @@
 {% load static%}
 {% block content %}
 
+<h3 class="page-title">Raw conll-U file Analysis</h3>
   <form method="post">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}" />
        {% for field in form %}
-        {{ field.label_tag }}<br>
+        {{ field.help_text }}<br>
         {{ field }}<br>
     {% endfor %}
     <button class="btn" type="submit">Submit</button>
   </form>
-<!--<section class="results">-->
-    <!--{% if query != "" %}-->
-        <!--<h4>Your Query:</h4>-->
-        <!--{{ query }}-->
-        <!--<h4>Tagging:</h4>-->
-        <!--{{ pos }}-->
-        <!--<h4>Dependencies:</h4>-->
-        <!--{{ relations|linebreaks }}-->
-<!--{% endif %}-->
 {% if query != "" %}
     <div id="accordion-segments" role="tablist" aria-multiselectable="true">
           <div class="card">
             <div class="card-header" role="tab" id="heading-segments">
                 <h5>
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-segments" aria-expanded="true"
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-segments" href="#collapse-segments" aria-expanded="true"
                    aria-controls="collapse-segments">
                   <span class="collapsed">Segmented text</span>
                 </a>
@@ -44,7 +36,7 @@
           <div class="card">
             <div class="card-header" role="tab" id="heading-pos">
                 <h5>
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-pos" aria-expanded="true"
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-pos" href="#collapse-pos" aria-expanded="true"
                    aria-controls="collapse-pos">
                   <span class="collapsed">Part of Speech Tags</span>
                 </a>
@@ -63,7 +55,7 @@
           <div class="card">
             <div class="card-header" role="tab" id="heading-dep">
                 <h5>
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-dep" aria-expanded="true"
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-dep" href="#collapse-dep" aria-expanded="true"
                    aria-controls="collapse-dep">
                   <span class="collapsed">Dependency Relations</span>
                 </a>

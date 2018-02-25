@@ -1,9 +1,9 @@
 import subprocess
 import io
 
-yap = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/yap_run.sh'
-yap_nett = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/yap'
-dep_output = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
+yap = 'treeFetcher/yap_run.sh'
+yap_nett = 'treeFetcher/parsing_handler/yapproj/src/yap/yap'
+dep_output = 'treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
 
 """
 the input file should be
@@ -17,7 +17,7 @@ the input file should be
 """
 def create_input_raw(utterance):
     seperated = utterance.split(" ")
-    input_path = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/data/input.raw'
+    input_path = 'treeFetcher/parsing_handler/yapproj/src/yap/data/input.raw'
     with open(input_path, 'w') as file:
         file.write('\n'.join(seperated))
         file.write("\n\n")
@@ -62,15 +62,16 @@ def segment_query(utterance=None):
     lemmas = conll_to_list(utterance)
     pos = []
     for lemma in lemmas:
-        pos.append(lemma[1])
+        if '-' not in lemma[0]:
+            pos.append(lemma[1])
     return " ".join(pos)
 
 def pos_tagger(utterance=None):
     lemmas = conll_to_list(utterance)
     pos = []
     for lemma in lemmas:
-        if lemma[3] != "PUNCT":
-            pos.append("%s\t|\t%s\t|\t%s" % (lemma[1], lemma[3], lemma[5].replace("|", "\t\t").replace("_", "\t")))
+        if (lemma[3] != "PUNCT") and ('-' not in lemma[0]):
+            pos.append("%s\t|\t%s\t|\t%s" % (lemma[1], lemma[5].replace("|", "\t\t").replace("_", "\t"), lemma[3]))
     return "\n".join(pos)
 
 
@@ -78,16 +79,17 @@ def show_dependencies(utterance=None):
     lemmas = conll_to_list(utterance)
     dependencies = []
     for line in lemmas:
-        relation = line[7]
-        head_index = line[6]
-        head_lemma = "root"
-        for subline in lemmas:
-            if subline[0] == head_index:
-                head_lemma = subline[1]
-        self_lemma = line[1]
-        self_index = line[0]
-        dependency = "%s(%s-%s, %s-%s)" %(relation, self_lemma, self_index, head_lemma, head_index)
-        dependencies.append(dependency)
+        if (line[3] != "PUNCT") and ('-' not in line[0]):
+            relation = line[7]
+            head_index = line[6]
+            head_lemma = "root"
+            for subline in lemmas:
+                if subline[0] == head_index:
+                    head_lemma = subline[1]
+            self_lemma = line[1]
+            self_index = line[0]
+            dependency = "%s(%s-%s, %s-%s)" %(relation, self_lemma, self_index, head_lemma, head_index)
+            dependencies.append(dependency)
     return "\n".join(dependencies)
 
 

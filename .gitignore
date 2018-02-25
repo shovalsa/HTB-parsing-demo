@@ -4,3 +4,7 @@ __pycache__
 UDvenv
 /static
 .DS_Store
+*.iml
+*.xml
+*migrations*
+*idea*

@@ -13,24 +13,32 @@ import time
 def home(request):
     return render(request, 'index.html')
 
+def about(request):
+    return render(request, 'about.html')
 
 def submit_utterance(request):
-    dep_output = '/home/shoval/PycharmProjects/hebrewUD/treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
+    dep_output = 'treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
+    lattices = ''
     query = ""
     pos = ""
     relations = ""
+    segments = ''
     if request.method == 'GET':
         form = UtteranceForm
     else:
         form = UtteranceForm(request.POST)
         if form.is_valid():
             query = form.cleaned_data.get('utterance')
+            segments = segment_query(query)
             annotation = form.cleaned_data.get('annotation')
             parsing = parse_sentence(query)
             parsing.wait()
             pos = pos_tagger()
             relations = show_dependencies()
-    return render(request, "index.html", {'form': form, 'pos': pos, 'relations': relations, 'query': query})
+            lattices_output = 'treeFetcher/parsing_handler/yapproj/src/yap/data/lattices.conll'
+            with open(lattices_output) as file:
+                lattices = file.readlines()
+    return render(request, "index.html", {'form': form, 'pos': pos, 'relations': relations, 'segments': segments, 'query': query, 'lattices': lattices})
 
 def submit_conll(request):
     query = ""
@@ -46,7 +54,7 @@ def submit_conll(request):
             segments = segment_query(query)
             pos = pos_tagger(query)
             relations = show_dependencies(query.rstrip("\n"))
-    return render(request, "conll-reader.html", {'form': form, 'pos': pos, 'relations': relations, 'segments': segments})
+    return render(request, "conll-reader.html", {'form': form, 'pos': pos, 'relations': relations, 'segments': segments, 'query': query})
 
 def relations(request):
     relations = DepCategory.objects.all()

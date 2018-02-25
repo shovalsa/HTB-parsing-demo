@@ -3,6 +3,7 @@
 {% load static%}
 {% block content %}
 
+<h3 class="page-title">Parsing with YAP</h3>
   <form method="post">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}" />
@@ -12,19 +13,89 @@
     {% endfor %}
     <button class="btn" type="submit">Submit</button>
   </form>
-<section class="results">
-    {% if query != "" %}
-        <h4>Your Query:</h4>
-        {{ query }}
-        <h4>Tagging:</h4>
-        {{ pos }}
-        <h4>Dependencies:</h4>
-        {{ relations|linebreaks }}
-{% endif %}
-</section>
-<section id="annotatorType">
-  <div class="sentence"></div>
-  <div class="tree"></div>
-</section>
+<!--<section class="results">-->
+    <!--{% if query != "" %}-->
+        <!--<h4>Your Query:</h4>-->
+        <!--{{ query }}-->
+        <!--<h4>Tagging:</h4>-->
+        <!--{{ pos }}-->
+        <!--<h4>Dependencies:</h4>-->
+        <!--{{ relations|linebreaks }}-->
+<!--{% endif %}-->
+<!--</section>-->
+{% if query != "" %}
+    <div id="parser-segments" role="tablist" aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="heading-segments-parser">
+                <h5>
+                <a class="collapsed" data-toggle="collapse" data-parent="#parser-segments" href="#collapse-segments-parser" aria-expanded="true"
+                   aria-controls="collapse-segments-parser">
+                  <span class="collapsed">Segmented text</span>
+                </a>
+              </h5>
+            </div>
+
+            <div id="collapse-segments-parser" class="collapse" role="tabpanel" aria-labelledby="heading-segments-parser">
+              <div class="card-block">
+                {{segments}}
+              </div>
+            </div>
+          </div>
     </div>
+<div id="parser-pos" role="tablist" aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="heading-pos-parser">
+                <h5>
+                <a class="collapsed" data-toggle="collapse" data-parent="#parser-pos" href="#collapse-pos-parser" aria-expanded="true"
+                   aria-controls="collapse-pos-parser">
+                  <span class="collapsed">Part of Speech Tags</span>
+                </a>
+              </h5>
+            </div>
+
+            <div id="collapse-pos-parser" class="collapse" role="tabpanel" aria-labelledby="heading-pos-parser">
+              <div class="card-block">
+                {{pos|linebreaks}}
+              </div>
+            </div>
+          </div>
+    </div>
+
+<div id="parser-dep" role="tablist" aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="heading-dep-parser">
+                <h5>
+                <a class="collapsed" data-toggle="collapse" data-parent="#parser-dep" href="#collapse-dep-parser" aria-expanded="true"
+                   aria-controls="collapse-dep-parser">
+                  <span class="collapsed">Dependency Relations</span>
+                </a>
+              </h5>
+            </div>
+
+            <div id="collapse-dep-parser" class="collapse" role="tabpanel" aria-labelledby="heading-dep-parser">
+              <div class="card-block">
+                {{relations|linebreaks}}
+              </div>
+            </div>
+          </div>
+    </div>
+<div id="parser-lattices" role="tablist" aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="heading-lattices-parser">
+                <h5>
+                <a class="collapsed" data-toggle="collapse" data-parent="#parser-lattices" href="#collapse-lattices-parser" aria-expanded="true"
+                   aria-controls="collapse-lattices-parser">
+                  <span class="collapsed">Lattices</span>
+                </a>
+              </h5>
+            </div>
+
+            <div id="collapse-lattices-parser" class="collapse" role="tabpanel" aria-labelledby="heading-lattices-parser">
+              <div class="card-block">
+                {{lattices|linebreaks}}
+              </div>
+            </div>
+          </div>
+    </div>
+{% endif %}
 {% endblock %}

@@ -27,4 +27,5 @@ urlpatterns = [
     path('relations', views.relations, name="UD-relations"),
     path('admin/', admin.site.urls),
     path('contact', views.contact, name="contact"),
+    path('about', views.about, name="about"),
 ]
