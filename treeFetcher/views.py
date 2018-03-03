@@ -17,7 +17,7 @@ def about(request):
     return render(request, 'about.html')
 
 def submit_utterance(request):
-    dep_output = 'treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
+    dep_output = '/home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
     lattices = ''
     query = ""
     pos = ""
@@ -29,15 +29,14 @@ def submit_utterance(request):
         form = UtteranceForm(request.POST)
         if form.is_valid():
             query = form.cleaned_data.get('utterance')
-            segments = segment_query(query)
-            annotation = form.cleaned_data.get('annotation')
             parsing = parse_sentence(query)
             parsing.wait()
+            segments = segment_query()
             pos = pos_tagger()
             relations = show_dependencies()
-            lattices_output = 'treeFetcher/parsing_handler/yapproj/src/yap/data/lattices.conll'
+            lattices_output = '/home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/data/lattices.conll'
             with open(lattices_output) as file:
-                lattices = file.readlines()
+                lattices = file.read().replace("\t", "      ")
     return render(request, "index.html", {'form': form, 'pos': pos, 'relations': relations, 'segments': segments, 'query': query, 'lattices': lattices})
 
 def submit_conll(request):
@@ -52,7 +51,7 @@ def submit_conll(request):
         if form.is_valid():
             query = form.cleaned_data.get('utterance')
             segments = segment_query(query)
-            pos = pos_tagger(query)
+            pos = pos_tagger(query).replace
             relations = show_dependencies(query.rstrip("\n"))
     return render(request, "conll-reader.html", {'form': form, 'pos': pos, 'relations': relations, 'segments': segments, 'query': query})
 

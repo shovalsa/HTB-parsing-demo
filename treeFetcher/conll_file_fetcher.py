@@ -2,8 +2,8 @@ import subprocess
 import io
 
 yap = 'treeFetcher/yap_run.sh'
-yap_nett = 'treeFetcher/parsing_handler/yapproj/src/yap/yap'
-dep_output = 'treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
+yap_nett = 'home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/yap'
+dep_output = '/home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
 
 """
 the input file should be
@@ -15,9 +15,11 @@ the input file should be
 .
 
 """
+
 def create_input_raw(utterance):
     seperated = utterance.split(" ")
-    input_path = 'treeFetcher/parsing_handler/yapproj/src/yap/data/input.raw'
+    # '/home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/data'
+    input_path = '/home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/data/input.raw'
     with open(input_path, 'w') as file:
         file.write('\n'.join(seperated))
         file.write("\n\n")
@@ -29,6 +31,7 @@ def parse_sentence(utterance):
     parsing = subprocess.Popen(yap, shell=True)
     parsing.wait()
     return parsing
+
 
 conll_placeholder = """1	אכן	אכן	ADV	ADV	_	4	advmod	_	SpaceAfter=No
 2	,	,	PUNCT	PUNCT	_	4	punct	_	_
