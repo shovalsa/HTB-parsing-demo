@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import UtteranceForm, ConllForm, ContactForm
-from .conll_file_fetcher import parse_sentence, pos_tagger, show_dependencies, segment_query
+from .conll_file_fetcher import parse_sentence, morphological_analyzer, show_dependencies, segment_query, pos_tagger
 from .models import DepCategory
 from django.core.mail import send_mail, BadHeaderError
 from django.template import RequestContext
@@ -23,6 +23,7 @@ def submit_utterance(request):
     pos = ""
     relations = ""
     segments = ''
+    morph = ''
     if request.method == 'GET':
         form = UtteranceForm
     else:
@@ -33,17 +34,19 @@ def submit_utterance(request):
             parsing.wait()
             segments = segment_query()
             pos = pos_tagger()
+            morph = morphological_analyzer()
             relations = show_dependencies()
             lattices_output = '/home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/data/lattices.conll'
             with open(lattices_output) as file:
                 lattices = file.read().replace("\t", "      ")
-    return render(request, "index.html", {'form': form, 'pos': pos, 'relations': relations, 'segments': segments, 'query': query, 'lattices': lattices})
+    return render(request, "index.html", {'form': form, 'pos': pos, 'morph': morph, 'relations': relations, 'segments': segments, 'query': query, 'lattices': lattices})
 
 def submit_conll(request):
     query = ""
     pos = ""
     relations = ""
     segments = ""
+    morph = ''
     if request.method == 'GET':
         form = ConllForm
     else:
@@ -51,9 +54,10 @@ def submit_conll(request):
         if form.is_valid():
             query = form.cleaned_data.get('utterance')
             segments = segment_query(query)
-            pos = pos_tagger(query).replace
+            pos = pos_tagger(query)
+            morph = morphological_analyzer(query)
             relations = show_dependencies(query.rstrip("\n"))
-    return render(request, "conll-reader.html", {'form': form, 'pos': pos, 'relations': relations, 'segments': segments, 'query': query})
+    return render(request, "conll-reader.html", {'form': form, 'pos': pos, 'relations': relations, 'segments': segments, 'query': query, 'morph': morph})
 
 def relations(request):
     relations = DepCategory.objects.all()
@@ -72,10 +76,11 @@ def contact(request):
             name = contact.cleaned_data.get('contact_name')
             everything = "Name: %s\n\nSubject: %s\n\nEmail: %s \n\nMessage: %s \n\n"%(str(name), str(subject), str(from_email), str(message))
             try:
-                send_mail(subject, everything, from_email, ['contact.shecodes@gmail.com'])
+                send_mail(subject, everything, from_email, ['onlp.openu@gmail.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            # return success(request)
+            sent = True
+            return redirect('contact')
     return render(request, "contact.html", {'contact': contact, 'sent': sent})
 
 def handler404(request):

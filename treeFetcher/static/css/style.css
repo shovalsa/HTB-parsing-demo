@@ -26,7 +26,40 @@ section p {
     text-align: justify;
     padding: 20px 100px 0px 20px;
     size: 16px;
-    line-height: 2.5;
+    line-height: 2;
+}
+
+section h3 {
+    padding: 40px 100px 0px 10px;
+
+}
+
+
+/*-------------------------------*/
+/*          accordion            */
+/*-------------------------------*/
+
+
+
+.analysis {
+    width: 56%;
+}
+
+
+.card-header .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";
+    float: left;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+    margin-right: 5px;
+}
+
+.card-header .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+    margin-right: 5px;
+
 }
 
 /*-------------------------------*/
@@ -78,7 +111,7 @@ section p {
     font-size: 16px;
 }
 
-#collapse-pos, #collapse-segments {
+#collapse-pos, #collapse-segments, #collapse-pos-parser, #collapse-morph, #collapse-morph-parser  {
     direction: rtl;
 }
 

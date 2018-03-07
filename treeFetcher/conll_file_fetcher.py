@@ -1,6 +1,7 @@
 import subprocess
 import io
 
+
 yap = 'treeFetcher/yap_run.sh'
 yap_nett = 'home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/yap'
 dep_output = '/home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/data/dep_output.conll'
@@ -74,8 +75,17 @@ def pos_tagger(utterance=None):
     pos = []
     for lemma in lemmas:
         if (lemma[3] != "PUNCT") and ('-' not in lemma[0]):
-            pos.append("%s\t|\t%s\t|\t%s" % (lemma[1], lemma[5].replace("|", "\t\t").replace("_", "\t"), lemma[3]))
-    return "\n".join(pos)
+            pos.append(". . %s %s  . ." % (lemma[1], lemma[3]))
+    return "\t".join(pos)
+
+
+def morphological_analyzer(utterance=None):
+    lemmas = conll_to_list(utterance)
+    morph = []
+    for lemma in lemmas:
+        if (lemma[3] != "PUNCT") and ('-' not in lemma[0]):
+            morph.append("%s\t\t%s\t\t" % (lemma[1], lemma[5].replace("|", "\t\t").replace("_", "\t")))
+    return "\n".join(morph)
 
 
 def show_dependencies(utterance=None):
@@ -96,6 +106,5 @@ def show_dependencies(utterance=None):
     return "\n".join(dependencies)
 
 
-def statistics():
-    pass
-# I can't extract the time from shell. maybe Amit can help.
+
+

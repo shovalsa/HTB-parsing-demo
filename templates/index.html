@@ -3,87 +3,101 @@
 {% load static%}
 {% block content %}
 
-<h3 class="page-title">Parsing with YAP</h3>
+<h3 class="page-title">Morphological and Syntactic Analysis of Hebrew Texts</h3>
   <form method="post">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}" />
        {% for field in form %}
-        {{ field.label_tag }}<br>
         {{ field }}<br>
     {% endfor %}
     <button class="btn" type="submit">Submit</button>
   </form>
-<!--<section class="results">-->
-    <!--{% if query != "" %}-->
-        <!--<h4>Your Query:</h4>-->
-        <!--{{ query }}-->
-        <!--<h4>Tagging:</h4>-->
-        <!--{{ pos }}-->
-        <!--<h4>Dependencies:</h4>-->
-        <!--{{ relations|linebreaks }}-->
-<!--{% endif %}-->
-<!--</section>-->
+
+<div class="analysis">
 {% if query != "" %}
     <div id="parser-segments" role="tablist" aria-multiselectable="true">
           <div class="card">
             <div class="card-header" role="tab" id="heading-segments-parser">
                 <h5>
-                <a class="collapsed" data-toggle="collapse" data-parent="#parser-segments" href="#collapse-segments-parser" aria-expanded="true"
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#parser-segments" href="#collapse-segments-parser" aria-expanded="true"
                    aria-controls="collapse-segments-parser">
-                  <span class="collapsed">Segmented text</span>
+                  <span class="collapsed">Segmented Text</span>
                 </a>
               </h5>
             </div>
 
-            <div id="collapse-segments-parser" class="collapse" role="tabpanel" aria-labelledby="heading-segments-parser">
+            <div id="collapse-segments-parser" class="collapse in" role="tabpanel" aria-labelledby="heading-segments-parser">
               <div class="card-block">
                 {{segments}}
               </div>
             </div>
           </div>
     </div>
-<div id="parser-pos" role="tablist" aria-multiselectable="true">
+<br>
+    <div id="parser-pos" role="tablist" aria-multiselectable="true">
           <div class="card">
             <div class="card-header" role="tab" id="heading-pos-parser">
                 <h5>
-                <a class="collapsed" data-toggle="collapse" data-parent="#parser-pos" href="#collapse-pos-parser" aria-expanded="true"
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#parser-pos" href="#collapse-pos-parser" aria-expanded="true"
                    aria-controls="collapse-pos-parser">
                   <span class="collapsed">Part of Speech Tags</span>
                 </a>
               </h5>
             </div>
 
-            <div id="collapse-pos-parser" class="collapse" role="tabpanel" aria-labelledby="heading-pos-parser">
+            <div id="collapse-pos-parser" class="collapse in" role="tabpanel" aria-labelledby="heading-pos-parser">
               <div class="card-block">
-                {{pos|linebreaks}}
+                {{pos}}
               </div>
             </div>
           </div>
     </div>
+<br>
+<div id="parser-morph" role="tablist" aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="heading-morph-parser">
+                <h5>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#parser-morph" href="#collapse-morph-parser" aria-expanded="true"
+                   aria-controls="collapse-morph-parser">
+                  <span class="collapsed">Morphological Features</span>
+                </a>
+              </h5>
+            </div>
+
+            <div id="collapse-morph-parser" class="collapse in" role="tabpanel" aria-labelledby="heading-morph-parser">
+              <div class="card-block">
+                {{morph|linebreaks}}
+              </div>
+            </div>
+          </div>
+    </div>
+<br>
 
 <div id="parser-dep" role="tablist" aria-multiselectable="true">
           <div class="card">
             <div class="card-header" role="tab" id="heading-dep-parser">
                 <h5>
-                <a class="collapsed" data-toggle="collapse" data-parent="#parser-dep" href="#collapse-dep-parser" aria-expanded="true"
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#parser-dep" href="#collapse-dep-parser" aria-expanded="true"
                    aria-controls="collapse-dep-parser">
                   <span class="collapsed">Dependency Relations</span>
                 </a>
               </h5>
             </div>
 
-            <div id="collapse-dep-parser" class="collapse" role="tabpanel" aria-labelledby="heading-dep-parser">
+            <div id="collapse-dep-parser" class="collapse in" role="tabpanel" aria-labelledby="heading-dep-parser">
               <div class="card-block">
                 {{relations|linebreaks}}
               </div>
             </div>
           </div>
     </div>
+<br>
+
 <div id="parser-lattices" role="tablist" aria-multiselectable="true">
           <div class="card">
             <div class="card-header" role="tab" id="heading-lattices-parser">
                 <h5>
-                <a class="collapsed" data-toggle="collapse" data-parent="#parser-lattices" href="#collapse-lattices-parser" aria-expanded="true"
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#parser-lattices" href="#collapse-lattices-parser" aria-expanded="true"
                    aria-controls="collapse-lattices-parser">
                   <span class="collapsed">Lattices</span>
                 </a>
@@ -97,5 +111,6 @@
             </div>
           </div>
     </div>
+</div>
 {% endif %}
 {% endblock %}
