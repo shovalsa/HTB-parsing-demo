@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
-from treeFetcher import views
+from treeFetcher import views, views_api
 
 
 
 
 urlpatterns = [
-    path('', views.submit_utterance, name="home"),
+    #path('', views.submit_utterance, name="home"),
+    path('', views_api.submit_utterance, name="home"),
     path('conll-reader', views.submit_conll, name="conll-reader"),
     path('relations', views.relations, name="UD-relations"),
     path('admin/', admin.site.urls),

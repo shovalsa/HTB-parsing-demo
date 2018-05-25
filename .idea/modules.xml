@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/hebrewUD.iml" filepath="$PROJECT_DIR$/.idea/hebrewUD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hebrew-dependency-viewer.iml" filepath="$PROJECT_DIR$/hebrew-dependency-viewer.iml" />
     </modules>
   </component>
 </project>

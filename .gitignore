@@ -1,10 +1,3 @@
-*.pyc
-*~
-__pycache__
-UDvenv
-/static
-.DS_Store
-*.iml
-*.xml
-*migrations*
-*idea*
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+**/*.pyc
