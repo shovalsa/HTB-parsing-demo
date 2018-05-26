@@ -44,12 +44,12 @@ def pos_tagger(conll):
     return "\t".join(pos)
 
 
-def morphological_analyzer(conll):
-    lemmas = conll_to_list(conll)
+def morphological_analyzer(lattice):
+    lemmas = conll_to_list(lattice)
     morph = []
     for lemma in lemmas:
-        if (lemma[3] != "PUNCT") and ('-' not in lemma[0]):
-            morph.append("%s\t\t%s\t\t" % (lemma[1], lemma[5].replace("|", "\t\t").replace("_", "\t")))
+        if (lemma[4] != "PUNCT") and ('-' not in lemma[2]):
+            morph.append("%s\t\t%s\t\t" % (lemma[2], lemma[6].replace("|", "\t\t").replace("_", "\t")))
     return "\n".join(morph)
 
 

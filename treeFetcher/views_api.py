@@ -18,10 +18,11 @@ def submit_utterance(request):
             parse_data = parse_sentence(query)
             #lattices = parse_data['ma_lattice'].replace("\\n", "\n").replace("\\t", "\t")
             #conll = parse_data['dep_tree'].replace("\\n", "\n").replace("\\t", "\t")
-            lattices = parse_data['ma_lattice']
+            #ma_lattices = parse_data['ma_lattice']
+            lattice = parse_data['md_lattice']
             conll = parse_data['dep_tree']
             segments = segment_query(conll)
             pos = pos_tagger(conll)
-            morph = morphological_analyzer(conll)
+            morph = morphological_analyzer(lattice)
             relations = show_dependencies(conll)
     return render(request, "index.html", {'form': form, 'pos': pos, 'morph': morph, 'relations': relations, 'segments': segments, 'query': query, 'lattices': lattices})
