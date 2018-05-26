@@ -16,10 +16,8 @@ def submit_utterance(request):
         if form.is_valid():
             query = form.cleaned_data.get('utterance')
             parse_data = parse_sentence(query)
-            #lattices = parse_data['ma_lattice'].replace("\\n", "\n").replace("\\t", "\t")
-            #conll = parse_data['dep_tree'].replace("\\n", "\n").replace("\\t", "\t")
-            #ma_lattices = parse_data['ma_lattice']
             lattice = parse_data['md_lattice']
+            lattices = parse_data['ma_lattice']
             conll = parse_data['dep_tree']
             segments = segment_query(conll)
             pos = pos_tagger(conll)
