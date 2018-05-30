@@ -16,14 +16,13 @@ def parse_sentence(utterance) -> dict:
 
 def conll_to_list(conll):
     lemmas = []
-    print(conll)
     for line in conll.split("\n"):
         if not line:
             continue
-        print("line: ", line)
+        elif line == '\"':
+            continue
         parts = [part for part in line.split("\t")]
         lemmas.append(parts)
-    print("lemmas", lemmas)
     return lemmas
 
 
@@ -40,9 +39,8 @@ def pos_tagger(conll):
     pos = []
     for lemma in lemmas:
         if (lemma[3] != "PUNCT") and ('-' not in lemma[0]):
-            pos.append(". . %s %s  . ." % (lemma[1], lemma[3]))
-    return "\t".join(pos)
-
+            pos.append("%s %s" % (lemma[2], lemma[4]))
+    return pos
 
 def morphological_analyzer(lattice):
     lemmas = conll_to_list(lattice)

@@ -20,7 +20,7 @@ def submit_utterance(request):
             lattices = parse_data['ma_lattice']
             conll = parse_data['dep_tree']
             segments = segment_query(conll)
-            pos = pos_tagger(conll)
+            pos = pos_tagger(lattice)
             morph = morphological_analyzer(lattice)
             relations = show_dependencies(conll)
     return render(request, "index.html", {'form': form, 'pos': pos, 'morph': morph, 'relations': relations, 'segments': segments, 'query': query, 'lattices': lattices})

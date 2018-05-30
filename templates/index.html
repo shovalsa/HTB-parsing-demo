@@ -47,7 +47,9 @@
 
             <div id="collapse-pos-parser" class="collapse in" role="tabpanel" aria-labelledby="heading-pos-parser">
               <div class="card-block">
-                {{pos}}
+                  {% for p in pos %}
+                    <div>{{p}}<div>
+                  {% endfor %}
               </div>
             </div>
           </div>
