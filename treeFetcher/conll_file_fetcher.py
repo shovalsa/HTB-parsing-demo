@@ -75,8 +75,8 @@ def pos_tagger(utterance=None):
     pos = []
     for lemma in lemmas:
         if (lemma[3] != "PUNCT") and ('-' not in lemma[0]):
-            pos.append(". . %s %s  . ." % (lemma[1], lemma[3]))
-    return "\t".join(pos)
+            pos.append("%s %s" % (lemma[1], lemma[3]))
+    return "\n".join(pos)
 
 
 def morphological_analyzer(utterance=None):

@@ -15,82 +15,41 @@
   </form>
 <div class="analysis">
 {% if query != "" %}
-    <div id="accordion-segments" role="tablist" aria-multiselectable="true">
-          <div class="card">
-            <div class="card-header" role="tab" id="heading-segments">
-                <h5>
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-segments" href="#collapse-segments" aria-expanded="true"
-                   aria-controls="collapse-segments">
-                  <span class="collapsed">Segmented Text</span>
-                </a>
-              </h5>
-            </div>
+<h3 style="margin-top:30px;">
+    <strong>Segmented Text: </strong>{{segments}}
 
-            <div id="collapse-segments" class="collapse in" role="tabpanel" aria-labelledby="heading-segments">
-              <div class="card-block">
-                {{segments}}
-              </div>
-            </div>
-          </div>
-    </div>
-<br>
-    <div id="pos" role="tablist" aria-multiselectable="true">
-          <div class="card">
-            <div class="card-header" role="tab" id="heading-pos">
-                <h5>
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#pos" href="#collapse-pos" aria-expanded="true"
-                   aria-controls="collapse-pos">
-                  <span class="collapsed">Part of Speech Tags</span>
-                </a>
-              </h5>
-            </div>
+</h3>
+<div class="analysis">
+<div class="row">
+  <h4>Please select level of analysis to display:</h4>
+  <button class="col-sm-4 btn" type="button" data-toggle="collapse" data-target="#collapse-pos-parser" aria-expanded="false" aria-controls="collapse-pos-parser">Part of Speech Tags</button>
+  <button class="col-sm-4 btn " type="button" data-toggle="collapse" data-target="#collapse-morph-parser" aria-expanded="false" aria-controls="collapse-morph-parser">Morphological Features</button>
+  <button class="col-sm-4 btn " type="button" data-toggle="collapse" data-target="#collapse-dep-parser" aria-expanded="false" aria-controls="collapse-dep-parser">Dependency Relations</button>
+</div>
 
-            <div id="collapse-pos" class="collapse in" role="tabpanel" aria-labelledby="heading-pos">
-              <div class="card-block">
-                {{pos}}
-              </div>
-            </div>
-          </div>
-    </div>
-<br>
-<div id="morph" role="tablist" aria-multiselectable="true">
-          <div class="card">
-            <div class="card-header" role="tab" id="heading-morph">
-                <h5>
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#morph" href="#collapse-morph" aria-expanded="true"
-                   aria-controls="collapse-morph">
-                  <span class="collapsed">Morphological Features</span>
-                </a>
-              </h5>
-            </div>
+<div class="row">
 
-            <div id="collapse-morph" class="collapse in" role="tabpanel" aria-labelledby="heading-morph">
-              <div class="card-block">
-                {{morph|linebreaks}}
-              </div>
-            </div>
-          </div>
+  <div class="col-sm-4">
+    <div class="collapse multi-collapse" id="collapse-pos-parser">
+      <div class="card card-body">
+            {{pos|linebreaks}}
+      </div>
     </div>
-<br>
-<div id="accordion-dep" role="tablist" aria-multiselectable="true">
-          <div class="card">
-            <div class="card-header" role="tab" id="heading-dep">
-                <h5>
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-dep" href="#collapse-dep" aria-expanded="true"
-                   aria-controls="collapse-dep">
-                  <span class="collapsed">Dependency Relations</span>
-                </a>
-              </h5>
-            </div>
-
-            <div id="collapse-dep" class="collapse in" role="tabpanel" aria-labelledby="heading-dep">
-              <div class="card-block">
-                {{relations|linebreaks}}
-              </div>
-            </div>
-          </div>
+  </div>
+      <div class="col-sm-4">
+    <div class="collapse multi-collapse" id="collapse-morph-parser">
+      <div class="card card-body">
+            {{morph|linebreaks}}
+      </div>
     </div>
-<br>
+  </div>
+  <div class="col-sm-4">
+    <div class="collapse multi-collapse" id="collapse-dep-parser">
+      <div class="card card-body">
+            {{relations|linebreaks}}
+      </div>
+    </div>
+  </div>
 </div>
 {% endif %}
 {% endblock %}

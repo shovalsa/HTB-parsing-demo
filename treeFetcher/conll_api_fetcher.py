@@ -32,7 +32,7 @@ def segment_query(conll):
     for lemma in lemmas:
         if '-' not in lemma[0]:
             pos.append(lemma[1])
-    return " ".join(pos)
+    return "  ".join(pos)
 
 def pos_tagger(conll):
     lemmas = conll_to_list(conll)
@@ -40,7 +40,7 @@ def pos_tagger(conll):
     for lemma in lemmas:
         if (lemma[3] != "PUNCT") and ('-' not in lemma[0]):
             pos.append("%s %s" % (lemma[2], lemma[4]))
-    return pos
+    return "\n".join(pos)
 
 def morphological_analyzer(lattice):
     lemmas = conll_to_list(lattice)

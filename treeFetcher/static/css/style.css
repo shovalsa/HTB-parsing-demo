@@ -18,7 +18,6 @@ main {
     padding-top: 30px;
     padding-bottom: 5px; /* This is the space between the heading text and the line */
     border-color: black;
-    font-family: 'Special Elite', Lucida sans, cursive;
 	font-size: 32px;
 }
 
@@ -34,33 +33,13 @@ section h3 {
 
 }
 
-
-/*-------------------------------*/
-/*          accordion            */
-/*-------------------------------*/
-
-
-
-.analysis {
-    width: 56%;
+h1, h2, h3, h4, h5, .page-title {
+    font-family: 'Special Elite', Lucida sans, cursive;
 }
 
 
-.card-header .accordion-toggle:after {
-    /* symbol for "opening" panels */
-    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
-    content: "\e114";
-    float: left;        /* adjust as needed */
-    color: grey;         /* adjust as needed */
-    margin-right: 5px;
-}
 
-.card-header .accordion-toggle.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
-    margin-right: 5px;
 
-}
 
 /*-------------------------------*/
 /*             NavBar            */
@@ -86,35 +65,34 @@ section h3 {
 /*           Annotations         */
 /*-------------------------------*/
 
+.analysis {
+    width: 90%;
+    margin-top: 2.5%;
+}
+
+
 .card {
     margin-top: 20px;
 }
 
-.card-header{
-    border-left: 6px solid black;
-    background-color: #ccc;
-    padding: 3px;
-}
 
-.collapsed,
-.collapsed a:hover,
-.collapsed a:active,
-.collapsed a:visited{
-    color:black;
-    font-weight: bold;
-    font-size: 18px;
-    text-decoration: none;
-}
+
 
 .collapse{
     padding-top: 20px;
     font-size: 16px;
 }
 
-#collapse-pos, #collapse-segments, #collapse-pos-parser, #collapse-morph, #collapse-morph-parser  {
-    direction: rtl;
-}
 
 .card-subtype {
     margin-left: 40px;
+}
+
+.btn{
+    border-color: black;
+    background-color: #ccc
+}
+
+.collapsed{
+    border-color: #ccc;
 }
