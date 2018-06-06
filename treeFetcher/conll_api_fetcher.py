@@ -1,5 +1,6 @@
 import requests
 import json
+import re
 
 # curl -s -X GET -H 'Content-Type: application/json' -d'{"text": "גנן גידל דגן בגן  "}' localhost:8000/yap/heb/pipeline | jq -r '.dep_tree' | sed -e 's/\\t/\t/g' -e 's/\\n/\n/g'
 url = "http://onlp.openu.org.il:8000/yap/heb/joint"
@@ -10,9 +11,18 @@ def call_yap_webapi(utterance) -> dict:
                              data=data.encode('utf-8'),
                              headers={'Content-type': 'applications/json'})
     return response.json()
+#
+def space_punctuation(utterance):
+    u = re.sub('([!#$%&\()*+,-./:;<=>?@\^_|~])', r' \1 ', utterance)
+    u = re.sub('(\s[\'\"`])', r' \1 ', u)
+    u = re.sub('([\'`\"]\s)', r' \1 ', u)
+    u = re.sub(r'([^\\])([\"])', r'\1\\\2', u)
+    return u
+
 
 def parse_sentence(utterance) -> dict:
-    return call_yap_webapi(utterance)
+    return call_yap_webapi(space_punctuation(utterance))
+
 
 def conll_to_list(conll):
     lemmas = []

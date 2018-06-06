@@ -4,8 +4,8 @@ from django import forms
 class UtteranceForm(forms.Form):
     utterance = forms.CharField(label='Utterance', widget=forms.Textarea(attrs={
         'placeholder': 'למשל, גנן גידל דגן בגן',
-        'rows': 2,
-        'cols': 150}))
+        'rows': 5,
+        'cols': 100}))
 
     annotation_options = ((None, "Choose Annotation"), ('segmentation', 'Segmentation'), ('pos', 'Part-of_speech Tags'),
                           ('dependency', 'Dependency Parse'),)
@@ -31,7 +31,7 @@ class ConllForm(forms.Form):
     utterance = forms.CharField(label='Utterance', widget=forms.Textarea(attrs={
         'placeholder': conll_placeholder,
         'rows': 10,
-        'cols': 150}), help_text="Please insert the conll-U file content of a single sentence, like the example below:")
+        'cols': 100}), help_text="Please insert the conll-U file content of a single sentence, like the example below:")
 
 
 class MyForm(forms.Form):
