@@ -72,11 +72,18 @@ h1, h2, h3, h4, h5, .page-title {
 
 
 .card {
-    margin-top: 20px;
+    margin-top: 5px;
+    margin-left: 20px;
 }
 
 
-
+.card-header{
+    margin: 5px;
+    margin-left: 15px;
+    width: 50%;
+    height: 30px;
+    text-align: left;
+}
 
 .collapse{
     padding-top: 20px;

@@ -21,28 +21,27 @@
 <div class="analysis">
 <div class="row">
   <h4>Please select level of analysis to display:</h4>
-  <button class="col-sm-3 btn" type="button" data-toggle="collapse" data-target="#collapse-pos-parser" aria-expanded="false" aria-controls="collapse-pos-parser">Part of Speech Tags</button>
-  <button class="col-sm-6 btn " type="button" data-toggle="collapse" data-target="#collapse-morph-parser" aria-expanded="false" aria-controls="collapse-morph-parser">Morphological Features</button>
-  <button class="col-sm-3 btn " type="button" data-toggle="collapse" data-target="#collapse-dep-parser" aria-expanded="false" aria-controls="collapse-dep-parser">Dependency Relations</button>
 </div>
 
 <div class="row">
-
-  <div class="col-sm-3">
+  <button class="card-header" type="button" data-toggle="collapse" data-target="#collapse-pos-parser" aria-expanded="false" aria-controls="collapse-pos-parser">Part of Speech Tags</button>
+  <div class="card-block">
     <div class="collapse multi-collapse" id="collapse-pos-parser">
       <div class="card card-body">
             {{pos|linebreaks}}
       </div>
     </div>
   </div>
-      <div class="col-sm-6">
+  <button class="card-header" type="button" data-toggle="collapse" data-target="#collapse-morph-parser" aria-expanded="false" aria-controls="collapse-morph-parser">Morphological Features</button>
+      <div class="card-block">
     <div class="collapse multi-collapse" id="collapse-morph-parser">
       <div class="card card-body">
             {{morph|linebreaks}}
       </div>
     </div>
   </div>
-  <div class="col-sm-3">
+  <button class="card-header" type="button" data-toggle="collapse" data-target="#collapse-dep-parser" aria-expanded="false" aria-controls="collapse-dep-parser">Dependency Relations</button>
+  <div class="card-block">
     <div class="collapse multi-collapse" id="collapse-dep-parser">
       <div class="card card-body">
             {{relations|linebreaks}}
