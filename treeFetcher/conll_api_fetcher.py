@@ -18,7 +18,9 @@ def space_punctuation(utterance):
     u = re.sub('([\'\"`]\s)', r' \1 ', u)  # end of quote
     u = re.sub('(^[\'\"`])', r' \1 ', u)  # sentence starts with quote
     u = re.sub('([\'\"`]$)', r' \1 ', u)  # sentence ends with quote
-    u = re.sub('([\'\"`])(\w{2,})', r'\2', u)  # quote start after morpheme (but not acronyms) e.g. גנן גידל דגן ב"גן הירק"
+    u = re.sub('(\w{1,3})([\'\"`])(\w{2,})', r' \2 \1\3', u)  # quote start after morpheme (but not acronyms)
+    #  e.g. גנן גידל דגן ב"גן הירק". The quote moves to left word boundary.
+
     u = re.sub(r'([^\\])([\"])', r'\1\\\2', u)
     return u
 
