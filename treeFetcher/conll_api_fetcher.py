@@ -15,7 +15,9 @@ def call_yap_webapi(utterance) -> dict:
 def space_punctuation(utterance):
     u = re.sub('([!#$%&\()*+,-./:;<=>?@\^_|~])', r' \1 ', utterance)
     u = re.sub('(\s[\'\"`])', r' \1 ', u)
-    u = re.sub('([\'`\"]\s)', r' \1 ', u)
+    u = re.sub('([\'\"`]\s)', r' \1 ', u)
+    u = re.sub('(^[\'\"`])', r' \1 ', u)
+    u = re.sub('([\'\"`]$)', r' \1 ', u)
     u = re.sub(r'([^\\])([\"])', r'\1\\\2', u)
     return u
 
