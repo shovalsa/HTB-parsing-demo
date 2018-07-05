@@ -14,12 +14,16 @@ def call_yap_webapi(utterance) -> dict:
 #
 def space_punctuation(utterance):
     u = re.sub('([!#$%&\()*+,-./:;<=>?@\^_|~])', r' \1 ', utterance)
-    u = re.sub('(\s[\'\"`])', r' \1 ', u)
-    u = re.sub('([\'\"`]\s)', r' \1 ', u)
-    u = re.sub('(^[\'\"`])', r' \1 ', u)
-    u = re.sub('([\'\"`]$)', r' \1 ', u)
+    u = re.sub('(\s[\'\"`])', r' \1 ', u)  # beginning of quote
+    u = re.sub('([\'\"`]\s)', r' \1 ', u)  # end of quote
+    u = re.sub('(^[\'\"`])', r' \1 ', u)  # sentence starts with quote
+    u = re.sub('([\'\"`]$)', r' \1 ', u)  # sentence ends with quote
+    u = re.sub('([\'\"`])(\w{2,})', r'\2', u)  # quote start after morpheme (but not acronyms) e.g. גנן גידל דגן ב"גן הירק"
     u = re.sub(r'([^\\])([\"])', r'\1\\\2', u)
     return u
+
+
+
 
 
 def parse_sentence(utterance) -> dict:
