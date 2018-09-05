@@ -22,6 +22,7 @@ def space_punctuation(utterance):
     #  e.g. גנן גידל דגן ב"גן הירק". The quote moves to left word boundary.
 
     u = re.sub(r'([^\\])([\"])', r'\1\\\2', u)
+    u = re.sub(r' +', ' ', u)
     return u
 
 
@@ -85,3 +86,9 @@ def show_dependencies(conll):
             dependency = "%s(%s-%s, %s-%s)" %(relation, self_lemma, self_index, head_lemma, head_index)
             dependencies.append(dependency)
     return "\n".join(dependencies)
+
+
+if __name__ == "__main__":
+    utterance = "שלום ,  שנה טובה לכולם"
+    parsed = parse_sentence(utterance)
+    print(parsed)
