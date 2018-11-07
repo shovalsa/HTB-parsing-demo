@@ -33,13 +33,6 @@ section h3 {
 
 }
 
-h1, h2, h3, h4, h5, .page-title {
-    font-family: 'Special Elite', Lucida sans, cursive;
-}
-
-
-
-
 
 /*-------------------------------*/
 /*             NavBar            */
@@ -79,8 +72,8 @@ h1, h2, h3, h4, h5, .page-title {
 
 .card-header{
     margin: 5px;
-    margin-left: 15px;
-    width: 50%;
+    margin-left: 5px;
+    width: 55%;
     height: 30px;
     text-align: left;
 }
@@ -102,4 +95,15 @@ h1, h2, h3, h4, h5, .page-title {
 
 .collapsed{
     border-color: #9b9b9b;
+}
+
+
+/*-------------------------------*/
+/*                Misc           */
+/*-------------------------------*/
+
+.alert-danger {
+    margin-top: 20px;
+    padding-top: 20px;
+    width: 50%;
 }

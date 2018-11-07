@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
-from .forms import UtteranceForm, ConllForm, ContactForm
+from .forms import UtteranceForm, ConllForm, ContactForm, ReportForm
 from .conll_file_fetcher import parse_sentence, morphological_analyzer, show_dependencies, segment_query, pos_tagger
 from .models import DepCategory
 from django.core.mail import send_mail, BadHeaderError
@@ -24,6 +24,7 @@ def submit_utterance(request):
     relations = ""
     segments = ''
     morph = ''
+    feedback = "thank you for your feedback"
     if request.method == 'GET':
         form = UtteranceForm
     else:
@@ -39,7 +40,7 @@ def submit_utterance(request):
             lattices_output = '/home/shoval/repos/openU/hebrew-dependency-viewer/treeFetcher/parsing_handler/yapproj/src/yap/data/lattices.conll'
             with open(lattices_output) as file:
                 lattices = file.read().replace("\t", "      ")
-    return render(request, "index.html", {'form': form, 'pos': pos, 'morph': morph, 'relations': relations, 'segments': segments, 'query': query, 'lattices': lattices})
+    return render(request, "index.html", {'form': form, 'pos': pos, 'morph': morph, 'relations': relations, 'segments': segments, 'query': query, 'lattices': lattices, 'feedback': feedback})
 
 def submit_conll(request):
     query = ""
@@ -82,6 +83,7 @@ def contact(request):
             sent = True
             return redirect('contact')
     return render(request, "contact.html", {'contact': contact, 'sent': sent})
+
 
 def handler404(request):
     response = render('404.html', {}, context_instance=RequestContext(request))

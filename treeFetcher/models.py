@@ -15,7 +15,7 @@ class DepCategory(models.Model):
     functional_category_choices = (('null', " "), ('core', "Core arguments"), ('noncore', "Non-core dependents"), ('nomdep', "Nominal dependents"))
     functional_category = models.CharField(max_length=50, choices=functional_category_choices, default="null",
                                            help_text="Choose the functional category of the dependent in relation to the head")
-    statistics = models.IntegerField(max_length=10, help_text="how many occurrences in treebank?", default=0)
+    statistics = models.IntegerField(help_text="how many occurrences in treebank?", default=0)
     is_language_specific = models.BooleanField(default=False)
 
     def __str__(self):
